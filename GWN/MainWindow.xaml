@@ -1,12 +1,45 @@
 ﻿<Window x:Class="GWN.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GWN"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Guess Who Game" MinHeight="400" MinWidth="600" MaxHeight="600" MaxWidth="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- For buttons -->
+            <RowDefinition Height="*"/>
+            <!-- For the grid -->
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <!-- For buttons -->
+            <ColumnDefinition Width="*"/>
+            <!-- For the grid -->
+        </Grid.ColumnDefinitions>
+
+        <!-- TextBox for grid code display -->
+        <TextBox Name="gridCodeDisplay" IsReadOnly="True" Width="400" Height="30" VerticalAlignment="Top" Margin="10,10,0,0" Grid.Row="0" Grid.Column="1"/>
+
+        <!-- TextBox for user input grid code -->
+        <TextBox Name="gridCodeTextBox" Width="400" Height="30" VerticalAlignment="Top" Margin="10,50,0,0" Grid.Row="0" Grid.Column="1" Text="Enter grid code here" GotFocus="GridCodeTextBox_GotFocus" LostFocus="GridCodeTextBox_LostFocus"/>
+
+        <!-- Randomize Images button -->
+        <Button Name="randomizeButton" Content="Randomize Grid" Width="100" Height="30" Click="RandomizeImages_Click" Margin="10,30,10,370" Grid.Row="1"/>
+
+        <!-- Load Grid button -->
+        <Button Name="loadGridButton" Content="Load Grid" Width="100" Height="30" Click="LoadGridFromCode_Click" Margin="10,101,10,299" Grid.Row="1"/>
+
+        <!-- Copy Code Button -->
+        <Button Name="copyCodeButton" Content="Copy Code" Width="100" Height="30" Click="CopyCode_Click" Margin="10,66,10,334" Grid.Row="1"/>
+
+        <!-- Create a UniformGrid for the 6x6 layout -->
+        <UniformGrid Rows="6" Columns="6" Name="imageGrid" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="400" Height="400" Grid.Column="1" RenderTransformOrigin="0.503,0.507" />
+
+        <!-- Image Box for "Your Nikke" under the "Load Grid" button -->
+        <StackPanel Grid.Row="1" Margin="10,141,10,239" HorizontalAlignment="Left" Width="100" VerticalAlignment="Top">
+            <Image Name="nikkeImageBox" Width="100" Height="100" Stretch="Uniform"/>
+            <TextBlock Text="Your Nikke" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+        </StackPanel>
 
     </Grid>
 </Window>
