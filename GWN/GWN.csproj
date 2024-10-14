@@ -293,14 +293,24 @@
     <None Remove="Images\si_c831_00_s.png" />
     <None Remove="Images\si_c832_00_s.png" />
     <None Remove="Images\si_c833_00_s.png" />
+    <None Remove="UI\code_bar.png" />
+    <None Remove="UI\copy_button.png" />
+    <None Remove="UI\dark_theme.png" />
+    <None Remove="UI\generate_button.png" />
+    <None Remove="UI\grid_button.png" />
+    <None Remove="UI\gwn_logo.png" />
+    <None Remove="UI\light_theme.png" />
+    <None Remove="UI\load_button.png" />
+    <None Remove="UI\nikke_placeholder.png" />
+    <None Remove="UI\Pretendard-Bold.otf" />
+    <None Remove="UI\Pretendard-SemiBold.otf" />
+    <None Remove="UI\randomize_button.png" />
+    <None Remove="UI\skip_button.png" />
+    <None Remove="UI\VehicleJNL.otf" />
   </ItemGroup>
 
   <ItemGroup>
     <Page Remove="MainWindow.xaml.bkp.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="MainWindow.xaml.bkp.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -751,6 +761,22 @@
     <Resource Include="Images\99.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="UI\code_bar.png" />
+    <Resource Include="UI\copy_button.png" />
+    <Resource Include="UI\dark_theme.png" />
+    <Resource Include="UI\generate_button.png" />
+    <Resource Include="UI\grid_button.png" />
+    <Resource Include="UI\gwn_logo.png" />
+    <Resource Include="UI\light_theme.png" />
+    <Resource Include="UI\load_button.png" />
+    <Resource Include="UI\nikke_placeholder.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="UI\Pretendard-Bold.otf" />
+    <Resource Include="UI\Pretendard-SemiBold.otf" />
+    <Resource Include="UI\randomize_button.png" />
+    <Resource Include="UI\skip_button.png" />
+    <Resource Include="UI\VehicleJNL.otf" />
   </ItemGroup>
 
 </Project>

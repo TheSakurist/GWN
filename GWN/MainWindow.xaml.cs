@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -23,7 +24,7 @@ namespace GWN
             InitializeComponent();
             random = new Random();
             imagePaths = LoadImagePaths();
-            RandomizeImages();
+            SetPlaceholderNikkeImageBox(); // Set placeholder on initialization
         }
 
         private static List<string> LoadImagePaths()
@@ -32,14 +33,59 @@ namespace GWN
             return Directory.GetFiles(imagesFolder, "*.png")
                             .Select(Path.GetFileName)
                             .Where(fileName => !string.IsNullOrEmpty(fileName))
-                            .ToList()!;
+                            .Select(fileName => fileName!)
+                            .ToList(); // Ensure this returns List<string>
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Show grid options window on startup
+            ShowGridOptionsPopup();
+        }
+
+        private void ShowCustomMessageBox(string message)
+        {
+            Point location = new Point(Left + (Width / 2) - 150, Top + (Height / 2) - 50); // Center the message box
+            var customMessageBox = new CustomMessageBox(message, location);
+            customMessageBox.ShowDialog();
+        }
+
+        private void ShowGridOptionsPopup()
+        {
+            var gridOptionsWindow = new GridOptionsWindow
+            {
+                Owner = this, // Set the owner to center the window
+                WindowStartupLocation = WindowStartupLocation.CenterOwner // Center it relative to the owner
+            };
+            gridOptionsWindow.ShowDialog(); // Show the pop-up
         }
 
         private void RandomizeImages()
         {
-            imageGrid.Children.Clear();
-            var selectedImages = imagePaths.OrderBy(x => random.Next()).Take(36).ToList();
+            // Check if the gridCodes.txt file exists
+            if (!File.Exists(CodeFilePath))
+            {
+                ShowCustomMessageBox("gridCodes.txt not found. Please generate grid codes first.");
+                return;
+            }
 
+            // Read all grid codes from the file
+            var gridCodes = File.ReadAllLines(CodeFilePath);
+            if (gridCodes.Length == 0)
+            {
+                ShowCustomMessageBox("No grid codes available. Please generate grid codes first.");
+                return;
+            }
+
+            // Select a random grid code
+            var randomGridCode = gridCodes[random.Next(gridCodes.Length)];
+            string[] parts = randomGridCode.Split(':');
+            string[] selectedImages = parts[1].Split(',');
+
+            // Clear the existing images
+            imageGrid.Children.Clear();
+
+            // Load the images associated with the selected grid code
             foreach (var imagePath in selectedImages)
             {
                 var img = new Image
@@ -55,11 +101,11 @@ namespace GWN
                 imageGrid.Children.Add(img);
             }
 
-            string gridCode = GenerateGridCode(selectedImages);
-            gridCodeDisplay.Text = gridCode; // Display the code
-            SaveGridCode(gridCode, selectedImages); // Save the code with the images
+            // Display the selected grid code
+            gridCodeDisplay.Text = parts[0];
 
-            ClearNikkeImageBox(); // Clear the image in "Your Nikke" when grid is randomized
+            // Clear the image in "Your Nikke" when grid is randomized
+            ClearNikkeImageBox();
         }
 
         private static string GenerateGridCode(List<string> selectedImages)
@@ -80,7 +126,7 @@ namespace GWN
             string code = gridCodeTextBox.Text.Trim();
             if (code.Length != 8)
             {
-                MessageBox.Show("Invalid code. Please enter an 8-character code.");
+                ShowCustomMessageBox("Invalid code. Please enter an 8-character code.");
                 return;
             }
 
@@ -88,7 +134,7 @@ namespace GWN
                                .FirstOrDefault(line => line.StartsWith(code));
             if (gridData == null)
             {
-                MessageBox.Show("Invalid code. Please ensure the code exists.");
+                ShowCustomMessageBox("Invalid code. Please ensure the code exists.");
                 return;
             }
 
@@ -119,6 +165,7 @@ namespace GWN
         private void CopyCode_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(gridCodeDisplay.Text);
+            // Removed the MessageBox popup
         }
 
         private void GridCodeTextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -164,14 +211,45 @@ namespace GWN
             if (sender is Image clickedImage)
             {
                 // Toggle opacity between 40% and 100%
-                clickedImage.Opacity = clickedImage.Opacity == 1.0 ? 0.4 : 1.0;
+                if (clickedImage.Opacity == 1.0)
+                {
+                    clickedImage.Opacity = 0.4; // Reduce opacity
+                    clickedImage.RenderTransformOrigin = new Point(0.5, 0.5); // Set origin to center
+                    clickedImage.RenderTransform = new ScaleTransform(0.9, 0.9); // Scale down to 90%
+                }
+                else
+                {
+                    clickedImage.Opacity = 1.0; // Restore opacity
+                    clickedImage.RenderTransform = new ScaleTransform(1, 1); // Restore scale
+                }
             }
         }
 
         private void ClearNikkeImageBox()
         {
             rightClickedImage = null;
-            nikkeImageBox.Source = null; // Clear the image box
+            SetPlaceholderNikkeImageBox(); // Set the placeholder when the box is cleared
+        }
+
+        private void SetPlaceholderNikkeImageBox()
+        {
+            nikkeImageBox.Source = new BitmapImage(new Uri("UI/nikke_placeholder.png", UriKind.Relative)); // Set the placeholder image
+        }
+
+        private void GridOptionsButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Create and show the grid options window
+            ShowGridOptionsPopup();
+        }
+
+        private void gridCodeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void gridCodeTextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
