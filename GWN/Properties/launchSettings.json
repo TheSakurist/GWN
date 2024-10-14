@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GWN": {
+      "commandName": "Project",
+      "workingDirectory": "D:\\studio test"
+    }
+  }
+}
