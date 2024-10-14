@@ -1,7 +1,3 @@
-Here’s a template for your "Read Me" text file for the GitHub page of your "Guess Who" game app. You can customize it further as needed:
-
----
-
 # Guess Who Nikke Edition
 
 Welcome to the Guess Who Game App! This application allows you to create and play a multiplayer "Guess Who" game with friends using girls from the gacha game "Goddess of Victory: Nikke"
