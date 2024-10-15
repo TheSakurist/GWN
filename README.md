@@ -1,6 +1,6 @@
 # Guess Who Nikke Edition
 
-Welcome to the Guess Who Game App! This application allows you to create and play a multiplayer "Guess Who" game with friends using girls from the gacha game "Goddess of Victory: Nikke"
+Welcome to the Guess Who Nikke Edition! This application allows you play a "Guess Who" game with friends using girls from the gacha game "Goddess of Victory: Nikke"
 
 ![image](https://github.com/user-attachments/assets/53a48e43-da5f-4f3e-93ec-8d62fc058574)
 
