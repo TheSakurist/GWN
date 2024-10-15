@@ -27,7 +27,7 @@ Welcome to the Guess Who Nikke Edition! This application allows you play a "Gues
 
 ## Installation
 
-1. Clone the repository or download the ZIP file.
+1. Download the [latest release](https://github.com/TheSakurist/GWN/releases/tag/release)
 2. Ensure you have .NET Framework installed on your computer.
 3. Open "GWN.exe"
 
