@@ -14,6 +14,8 @@ Welcome to the Guess Who Game App! This application allows you to create and pla
 3. [Usage](#usage)
 4. [How It Works](#how-it-works)
 5. [Contact](#contact)
+6. [License](#license)
+
 
 ## Features
 
@@ -44,3 +46,8 @@ Welcome to the Guess Who Game App! This application allows you to create and pla
 ## Contact
 
 For any questions or feedback, please reach out via the GitHub repository or contact me directly.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for detail
+
